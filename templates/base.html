@@ -8,8 +8,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-		
-		{% tailwind_css %}
+		{% comment %} {% tailwind_css %} {% endcomment %}
 
 		<!-- Bootstrap Link -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
@@ -17,7 +16,7 @@
 
 	</head>
 
-	<body class="bg-gray-100 leading-normal tracking-normal">
+	<body class="bg-gray-100 leading-normal tracking-normal overflow-hidden">
 		<!-- this is the navbar -->
 		{% include 'includes/navbar.html' %}
 
@@ -30,6 +29,7 @@
 
 
 		<!-- this is the footer -->
+		{% include 'includes/footer.html' %}
 
 
 		<!-- bootstap JS -->
