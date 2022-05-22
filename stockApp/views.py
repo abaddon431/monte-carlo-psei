@@ -12,6 +12,11 @@ import os
 
 # this is for the home view
 def home(request):
+
+    return render(request, 'stockApp/home.html', {})
+
+
+def update_stock(request):
     # change this to change the data source of stock from yahoo finance
     SOURCE = 'PSEI.PS'
     stock_ticker = yf.Ticker('PSEI.PS')
@@ -101,4 +106,4 @@ def home(request):
     context = {
         'current_price' : round(last_quote, 3),
     }
-    return render(request, 'stockApp/home.html', context)
+    return render(request, "simulate activated")
