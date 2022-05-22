@@ -1,9 +1,9 @@
-
+{% load humanize %}
     <section id="hero-section">
         <h1 class="fs-3">Philippine Stock Exchange Index</h1>
         <h2 class="fs-6 text-secondary">PSEI Portfolio Value</h2>
         <!-- insert the current PSEI value here -->
-        <span class="main-value fs-1 fw-bold">PHP31,110</span>
+        <span class="main-value fs-1 fw-bold">PHP{{ current_price|intcomma }}</span>
 
         <!-- insert here the current stock prices -->
         {% include 'stockApp/includes/current-price.html' %}

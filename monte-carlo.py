@@ -22,7 +22,7 @@ stock_returns = stock_data['Adj Close'].pct_change()
 daily_volatility = stock_returns.std()
 
 # setting of initial variables needed
-trading_days = 31
+trading_days = 15
 last_prices = []  # last price array
 last_price = stock_data['Adj Close'][-1]  # set initial value of the last price
 
@@ -60,7 +60,8 @@ fig.set_figheight(5)
 plt.plot(df)
 plt.xlabel('Days')
 plt.ylabel('Price')
-filename = str(TOTAL_SIMULATIONS) + "-" + str(trading_days) + ".png"
+# filename = str(TOTAL_SIMULATIONS) + "-" + str(trading_days) + ".png"
+filename = "forecast_graph.png"
 plt.savefig(filename, dpi=300)
 plt.show()
 
