@@ -1,19 +1,47 @@
 {% load static %}
-<section id="stocks-forecasting">
-    <h1 class="fs-3">Stocks Forecasting</h1>
-    <h2 class="fs-6 text-secondary">Monte Carlo Simulation Algorithm</h2>
+<section id="stocks-forecasting" class="border-top border-bottom border-2 border-secondary border-opacity-25 py-4">
+  <h1 class="fs-3">Stocks Forecasting</h1>
+  <h2 class="fs-6 text-secondary">Monte Carlo Simulation Algorithm</h2>
 
-    <div class="stocks-buttons">
-        <form action="" method="POST">
-            {% csrf_token %}
-            <button type="submit" name="update-btn" class="btn btn-dark">Update</button>
-        </form>
-    </div>
+  <div class="stocks-buttons row">
+    <form action="{% url 'stockApp:update-stock' %}" method="POST">
+      {% csrf_token %}
+      <div class="row">
+        <div class="col">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="No. of Days"
+            aria-label="First name"
+            required
+          />
+        </div>
+        <div class="col">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="No. of Simulations"
+            aria-label="Last name"
+            required
+          />
+        </div>
+      </div>
+      <div class="col mt-2 d-grid">
+        <button type="submit" name="update-btn" class="btn btn-dark">
+          Update
+        </button>
+      </div>
+    </form>
+  </div>
 
-    <div class="graph-container py-4">
-        <img src="{% static 'images/graph/forecast_graph.png' %}" alt="forecast-graph" class="img-fluid">
-        <h3>This is the graph</h3>
-    </div>
+  <div class="graph-container py-4">
+    <img
+      src="{% static 'images/graph/forecast_graph.png' %}"
+      alt="forecast-graph"
+      class="img-fluid"
+    />
+    <h3>This is the graph</h3>
+  </div>
 
-    <h4>This is the other graph</h4>
+  <h4>This is the other graph</h4>
 </section>

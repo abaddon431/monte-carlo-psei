@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 # imports for stocks forecasting and graph plotting
 import yfinance as yf
 import datetime as dt
@@ -12,8 +12,21 @@ import os
 
 # this is for the home view
 def home(request):
+    # this function is responsible for current prices
+    ticker_yahoo = yf.Ticker('PSEI.PS')
+    data = ticker_yahoo.history()
+    last_quote = data['Close'].iloc[-1]
+    prev_lastquote = data['Close'].iloc[-2]
+    degree = "(" + str(round(((last_quote - prev_lastquote) / abs(last_quote)) * 100, 2)) + "%)"
+    change_val = round(last_quote - prev_lastquote, 2)
+    change_pct= str(round(last_quote-prev_lastquote,2))+degree
+    context = {
+        'current_price': round(last_quote, 3),
+        'change_pct': change_pct,
+        'change_val': change_val
+    }
 
-    return render(request, 'stockApp/home.html', {})
+    return render(request, 'stockApp/home.html', context)
 
 
 def update_stock(request):
@@ -39,8 +52,9 @@ def update_stock(request):
     last_prices = []  # last price array
     last_price = stock_data['Adj Close'][-1]  # set initial value of the last price
 
-    TOTAL_SIMULATIONS = 10
-    df = pd.DataFrame()
+    TOTAL_SIMULATIONS = 1000
+    # df = pd.DataFrame()
+    temp_frames = []
     for x in range(TOTAL_SIMULATIONS):
         counter = 0
         prices = []
@@ -53,37 +67,50 @@ def update_stock(request):
         for y in range(trading_days):
             if counter > trading_days - 1:
                 break
-            # this code also gets the simulated price using the same method but multiplies the random normal distribution
-            # sample with the elements on the prices array
+            # this code also gets the simulated price using the same method but multiplies the random normal
+            # distribution sample with the elements on the prices array
             price = prices[counter] * (1 + np.random.normal(0, daily_volatility))
             prices.append(price)
             counter += 1
 
-        df[x] = prices
+        # df[x] = prices
+        temp_frame = pd.DataFrame()
+        temp_frame[x] = prices
+        temp_frames.append(temp_frame)
         last_prices.append(prices[-1])
-
+    df = pd.concat(temp_frames,axis=1)
     # this is used for setting the plot
     plt.style.use('ggplot')
-    fig = plt.figure()
     title = str(TOTAL_SIMULATIONS) + " Monte Carlo simulations of :\n" + str(stock_company) + " for " + str(
         trading_days) + " days"
-    fig.suptitle(title)
-    fig.set_figwidth(8)
-    fig.set_figheight(5)
-    plt.plot(df)
-    plt.xlabel('Days')
-    plt.ylabel('Price')
-    # filename = str(TOTAL_SIMULATIONS) + "-" + str(trading_days) + ".png"
-    current_directory = "./static/images/graph"
-    filename = "forecast_graph.png"
-    plt.savefig(os.path.join(current_directory, filename), dpi=300)
-    # plt.show()
+    fig1, ax1 = plt.subplots()
+    ax1.plot(df)
+    ax1.set_title(title)
+    ax1.set_ylabel("Price")
+    ax1.set_xlabel("Days")
+
 
     tickers = [SOURCE]
     for ticker in tickers:
         ticker_yahoo = yf.Ticker(ticker)
         data = ticker_yahoo.history()
         last_quote = data['Close'].iloc[-1]
+
+    plt.axhline(y=last_quote, color='black', linestyle='-')
+    # fig = plt.figure()
+    # title = str(TOTAL_SIMULATIONS) + " Monte Carlo simulations of :\n" + str(stock_company) + " for " + str(
+    #     trading_days) + " days"
+    # fig.suptitle(title)
+    # fig.set_figwidth(8)
+    # fig.set_figheight(5)
+    # plt.plot(df)
+    # plt.xlabel('Days')
+    # plt.ylabel('Price')
+    # filename = str(TOTAL_SIMULATIONS) + "-" + str(trading_days) + ".png"
+    current_directory = "./static/images/graph"
+    filename = "forecast_graph.png"
+    plt.savefig(os.path.join(current_directory, filename), dpi=300)
+    # plt.show()
 
     expected_price = np.mean(last_prices)
     quantile_five = np.percentile(last_prices, 5)
@@ -94,16 +121,24 @@ def update_stock(request):
     print("Quantile (5%): ", quantile_five)
     print("Quantile (95%): ", quantile_ninetyfive)
 
+    # this is to plot the second graph (histogram)
 
-    # this is to plot the second graph
-    plt.hist(last_prices, bins=100)
-    plt.axvline(np.percentile(last_prices, 5), color='r',
-                linestyle='dashed', linewidth=2)
-    plt.axvline(np.percentile(last_prices, 95), color='r',
-                linestyle='dashed', linewidth=2)
+    # fig2, ax2 = plt.subplots()
+    # ax2.hist(last_prices, bins=100, color='#6397ff')
+    # ax2.set_title(title)
+    # ax2.set_ylabel("Price")
+    # ax2.set_xlabel("Days")
+    # plt.axvline(np.percentile(last_prices, 5), color='r', linestyle='dashed', linewidth=2)
+    # plt.axvline(np.percentile(last_prices, 95), color='r', linestyle='dashed', linewidth=2)
+    #
+    # filename = "histogram.png"
+    # plt.savefig(os.path.join(current_directory, filename), dpi=300)
     # plt.show()
 
-    context = {
-        'current_price' : round(last_quote, 3),
-    }
-    return render(request, "simulate activated")
+    # this is the session that will save the data form this function
+    # del request.session['current_price']
+    # request.session['current_price'] = round(last_quote, 2)
+
+    # in this return, redirect the users to the home template
+    return redirect('stockApp:home')
+    
