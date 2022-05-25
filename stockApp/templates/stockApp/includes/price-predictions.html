@@ -1,11 +1,15 @@
 <div
-  class="current-stocks my-4 py-4 border-top border-bottom border-2 border-secondary border-opacity-25"
+  class="current-stocks py-2 border-2 border-secondary border-opacity-25"
 >
+  <h1 class="mb-4">Price Predictions</h1>
   <div class="row">
-    <div class="gain col">
-      <h4 class="fs-6">Today's Gains</h4>
+
+
+    <!-- this is quantile up -->
+    <div class="quantile_up col">
+      <h4 class="fs-6">Quantile (95%)</h4>
       <div class="d-flex align-items-baseline justify-content-center">
-        <svg
+        {% comment %} <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
           height="16"
@@ -16,14 +20,25 @@
           <path
             d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0zm-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z"
           />
-        </svg>
+        </svg> {% endcomment %}
         <p class="fs-2 ms-1 text-success fw-bold">P6,000</p>
       </div>
     </div>
-    <div class="loss col">
-      <h4 class="fs-6">Today's Losses</h4>
+
+
+    <!-- this is expected price -->
+    <div class="expected-price col">
+      <h4 class="fs-6">Expected Price</h4>
       <div class="d-flex align-items-baseline justify-content-center">
-        <svg
+        <p class="fs-2 ms-1 fw-bold">-P15,000</p>
+      </div>
+    </div>
+
+    <!-- this is quantile down -->
+    <div class="quantile_down col">
+      <h4 class="fs-6">Quantile (5%)</h4>
+      <div class="d-flex align-items-baseline justify-content-center">
+        {% comment %} <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
           height="16"
@@ -34,9 +49,10 @@
           <path
             d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"
           />
-        </svg>
-        <p class="fs-2 ms-1 text-danger fw-bold">-P5,000(10%)</p>
+        </svg> {% endcomment %}
+        <p class="fs-2 ms-1 text-danger fw-bold">P5,000</p>
       </div>
     </div>
+    
   </div>
 </div>

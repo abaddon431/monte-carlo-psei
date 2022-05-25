@@ -1,13 +1,15 @@
 {% load static %}
-<section id="stocks-forecasting" class="border-top border-bottom border-2 border-secondary border-opacity-25 py-4">
+<section
+  id="stocks-forecasting"
+  class="border-top border-bottom border-2 border-secondary border-opacity-25 py-4"
+>
   <h1 class="fs-3">Stocks Forecasting</h1>
   <h2 class="fs-6 text-secondary">Monte Carlo Simulation Algorithm</h2>
   {% if messages %}
-      <div>
-        {% for message in messages  %}
-            {% include 'stockApp/includes/messages.html' %}
-        {% endfor %}
-      </div>  
+  <div>
+    {% for message in messages %} {% include 'stockApp/includes/messages.html'
+    %} {% endfor %}
+  </div>
   {% endif %}
 
   <div class="stocks-buttons row">
@@ -33,7 +35,6 @@
             name="simulation_number"
             required
             min="1"
-       
           />
         </div>
         <div class="col">
@@ -60,14 +61,17 @@
       alt="forecast-graph"
       class="img-fluid"
     />
-    
+
     <!-- here goes the histogram -->
-    <div class="histogram-container border-top border-bottom border-2 border-secondary border-opacity-25 py-3 my-3">
+    <div
+      class="histogram-container border-top border-bottom border-2 border-secondary border-opacity-25 py-3 my-3"
+    >
       <h3>Frequeny Graph</h3>
       <p class="text-secondary">insert the graph here</p>
       <!-- <img src="..." class="img-fluid img-thumbnail" alt=""> -->
     </div>
   </div>
 
-  <h4>This is the other graph</h4>
+  <!-- insert here the price predictions -->
+  {% include 'stockApp/includes/price-predictions.html' %}
 </section>
