@@ -2,33 +2,52 @@
 <section id="stocks-forecasting" class="border-top border-bottom border-2 border-secondary border-opacity-25 py-4">
   <h1 class="fs-3">Stocks Forecasting</h1>
   <h2 class="fs-6 text-secondary">Monte Carlo Simulation Algorithm</h2>
+  {% if messages %}
+      <div>
+        {% for message in messages  %}
+            {% include 'stockApp/includes/messages.html' %}
+        {% endfor %}
+      </div>  
+  {% endif %}
 
   <div class="stocks-buttons row">
     <form action="{% url 'stockApp:update-stock' %}" method="POST">
       {% csrf_token %}
-      <div class="row">
+      <div class="row gap-0">
         <div class="col">
           <input
-            type="text"
+            type="number"
             class="form-control"
             placeholder="No. of Days"
-            aria-label="First name"
+            name="simulation_days"
             required
+            min="1"
+            max="10001"
           />
         </div>
         <div class="col">
           <input
-            type="text"
+            type="number"
             class="form-control"
             placeholder="No. of Simulations"
-            aria-label="Last name"
+            name="simulation_number"
             required
+            min="1"
+       
+          />
+        </div>
+        <div class="col">
+          <input
+            type="number"
+            class="form-control"
+            placeholder="Investment in Peso"
+            name="investment"
           />
         </div>
       </div>
-      <div class="col mt-2 d-grid">
+      <div class="col mt-3 d-grid">
         <button type="submit" name="update-btn" class="btn btn-dark">
-          Update
+          Start Simulation
         </button>
       </div>
     </form>
