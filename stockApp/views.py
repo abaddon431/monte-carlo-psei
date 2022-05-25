@@ -70,7 +70,8 @@ def update_stock(request):
             # we get the simulated price by drawing random samples from a normal distribution using numpy where..
             # .. mean =0 , standard deviation = daily_volatility, ..
             # .. and multiplying the sample with the last price on the list.
-            price = last_price * (1 + np.random.normal(0, daily_volatility))
+            # price = last_price * (1 + np.random.normal(0, daily_volatility))
+            price = last_price
             prices.append(price)
 
             for y in range(trading_days):
