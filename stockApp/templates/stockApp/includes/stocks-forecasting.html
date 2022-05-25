@@ -12,47 +12,8 @@
   </div>
   {% endif %}
 
-  <div class="stocks-buttons row">
-    <form action="{% url 'stockApp:update-stock' %}" method="POST">
-      {% csrf_token %}
-      <div class="row gap-0">
-        <div class="col">
-          <input
-            type="number"
-            class="form-control"
-            placeholder="No. of Days"
-            name="simulation_days"
-            required
-            min="1"
-            max="10001"
-          />
-        </div>
-        <div class="col">
-          <input
-            type="number"
-            class="form-control"
-            placeholder="No. of Simulations"
-            name="simulation_number"
-            required
-            min="1"
-          />
-        </div>
-        <div class="col">
-          <input
-            type="number"
-            class="form-control"
-            placeholder="Investment in Peso"
-            name="investment"
-          />
-        </div>
-      </div>
-      <div class="col mt-3 d-grid">
-        <button type="submit" name="update-btn" class="btn btn-dark">
-          Start Simulation
-        </button>
-      </div>
-    </form>
-  </div>
+  <!-- insert here the calculator -->
+  {% include 'stockApp/includes/calculator.html' %}
 
   <!-- here goes the frequency graph -->
   <div class="graph-container">

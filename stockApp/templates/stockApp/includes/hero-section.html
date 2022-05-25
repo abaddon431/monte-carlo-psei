@@ -4,7 +4,7 @@
         <h2 class="fs-6 text-secondary">PSEI Portfolio Value</h2>
         <!-- insert the current PSEI value here -->
         {% if current_price%}
-            <span class="main-value fs-1 fw-bold">PHP{{ current_price|intcomma }}</span>
+            <span class="main-value fs-1 fw-bold">₱ {{ current_price|intcomma }}</span>
 
             {% if change_val < 0 %}
             <div class="d-flex align-items-baseline justify-content-center">
@@ -42,7 +42,7 @@
             {% endif %}
             
         {% else %}
-            <span class="main-value fs-1 fw-bold">PHP10,000.00</span>
+            <span class="main-value fs-1 fw-bold">PHP----.--</span>
         {% endif %}
 
         <!-- insert here the current stock prices -->

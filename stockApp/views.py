@@ -145,9 +145,13 @@ def update_stock(request):
         # plt.savefig(os.path.join(current_directory, filename), dpi=300)
         # plt.show()
 
-        # this is the session that will save the data form this function
-        # del request.session['current_price']
+        # this is the session that will save the data from this function
+        # del request.session['expected_price', 'quantile_five', 'quantile_ninetyfive']
         # request.session['current_price'] = round(last_quote, 2)
+        request.session['expected_price'] = round(expected_price, 2)
+        request.session['quantile_five'] = round(quantile_five, 2)
+        request.session['quantile_ninetyfive'] = round(quantile_ninetyfive, 2)
+
 
         # in this return, redirect the users to the home template
         return redirect('stockApp:home')
