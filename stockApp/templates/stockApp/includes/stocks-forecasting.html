@@ -24,13 +24,10 @@
     />
 
     <!-- here goes the histogram -->
-    {% comment %} <div
-      class="histogram-container border-top border-bottom border-2 border-secondary border-opacity-25 py-3 my-3"
-    >
-      <h3>Frequeny Graph</h3>
-      <p class="text-secondary">insert the graph here</p>
-      <!-- <img src="..." class="img-fluid img-thumbnail" alt=""> -->
-    </div> {% endcomment %}
+      <div
+      class="histogram-container border-top border-bottom border-2 border-secondary border-opacity-25 py-3 my-3">
+         <img src="{% static 'images/graph/histogram.png' %}" class="img-fluid img-thumbnail" alt="distribution-graph" width="500px">
+      </div>
   </div>
 
   {% if not request.session.expected_price %}
