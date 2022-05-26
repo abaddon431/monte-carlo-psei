@@ -1,6 +1,6 @@
-# Random Walk - Monte Carlo simulation of the Philippine Stock Exchange Index
+# Monte Carlo simulation of the Philippine Stock Exchange Index
 
-This Django web app aims to simulate and estimate the future stock market value of the Philippine Stock Exchange Index using the Random walk method and Monte Carlo simulation. this app assumes that the returns of the stock portfolio follows a normal distribution, this app also assumes that the volatility risk of the stock will not change and will remain constant
+This Django web app aims to simulate and estimate the future stock market value of the Philippine Stock Exchange Index using Monte Carlo simulation. this app assumes that the returns of the stock portfolio follows a normal distribution, this app also assumes that the volatility risk of the stock will not change and will remain constant
 
 ## Requirements
 * [yfinance](https://pypi.org/project/yfinance/)
@@ -60,8 +60,38 @@ quantile_ninetyfive = np.percentile(last_prices, 95)
      - Possible gains/losses of invesment
 
 ## Technical Background
-     - This section is under construction -
+* Front End
+  * HTML, CSS, Javascript
+  * [Bootstrap](https://getbootstrap.com/)
+  * [Django Block Template](https://docs.djangoproject.com/en/4.0/ref/templates/language/)
+* Back End
+  * [Django Web Framework](https://www.djangoproject.com/)
+  * [Python 3](https://www.python.org/downloads/)
+* Networks / Other Technologies
+  * A web hosting provider
+  * [Yahoo Finance](https://finance.yahoo.com/)
+  * [Philippine Stock Exchange](https://www.pse.com.ph/)
+* Hardware Requirements
+  * Any device that can run a web browser
+  * Atleast an Intel i5 processor or its AMD equivalent **(for deveelopers)**
+  * Atleast 4gb of RAM.
+  * 1GB of Disk Space.
+* Software Requirements
+  * A web browser, preferably google [Chrome](https://www.google.com/intl/en_ph/chrome/)
+  * [PyCharm](https://www.jetbrains.com/pycharm/)  **(for developers)** *optional*
+  * [Python 3](https://www.python.org/downloads/) **(for developers)** 
+
+## Algorithm Design and Techniques	
+* Algorithm
+  * [Monte Carlo Method](https://www.investopedia.com/terms/m/montecarlosimulation.asp)
+  * [Normal Distribution - Random Number Generator](https://numpy.org/doc/stable/reference/random/generated/numpy.random.normal.html)
+* Application of Algorithm	
+  * This project uses the Monte Carlo method to simulate the stability of the Philippine Stock Exchange portfolio, specifically the PSE Index. This application determine the volatility of the stock portfolio based on the portfolio's history and uses that volatility as the range to generate the random numbers needed to generate a Monte Carlo simulation. The application will then find the normal distribution of the simulated prices
+and then gets the mean, 5th and 95th percentile for the estimations.
+
 ## Contributors
 [Bryan Kenneth Tabares](https://github.com/abaddon431/)
 
-[Mike Jerrson Galindez](https://github.com/miker-bice/).
+[Mike Jerrson Galindez](https://github.com/miker-bice/)
+
+A special thanks to Mr. [Alvin Montiano](https://github.com/ALVIN0109/) for guiding as in this project.
