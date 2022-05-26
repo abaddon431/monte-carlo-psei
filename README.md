@@ -73,13 +73,13 @@ quantile_ninetyfive = np.percentile(last_prices, 95)
   * [Philippine Stock Exchange](https://www.pse.com.ph/)
 * Hardware Requirements
   * Any device that can run a web browser
-  * Atleast an Intel i5 processor or its AMD equivalent **(for deveelopers)**
-  * Atleast 4gb of RAM.
-  * 1GB of Disk Space.
+  * Atleast an Intel i5 processor or its AMD equivalent **(for testing)**
+  * Atleast 4gb of RAM. **(for testing)**
+  * 1GB of Disk Space. **(for testing)**
 * Software Requirements
   * A web browser, preferably google [Chrome](https://www.google.com/intl/en_ph/chrome/)
-  * [PyCharm](https://www.jetbrains.com/pycharm/)  **(for developers)** *optional*
-  * [Python 3](https://www.python.org/downloads/) **(for developers)** 
+  * [PyCharm](https://www.jetbrains.com/pycharm/)  **(for testing)** *optional*
+  * [Python 3](https://www.python.org/downloads/) **(for testing)** 
 
 ## Algorithm Design and Techniques	
 * Algorithm
