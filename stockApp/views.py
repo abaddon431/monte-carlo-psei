@@ -137,9 +137,9 @@ def update_stock(request):
 
         fig2, ax2 = plt.subplots()
         ax2.hist(last_prices, bins=100, color='#6397ff')
-        ax2.set_title(title)
-        ax2.set_ylabel("Price")
-        ax2.set_xlabel("Days")
+        ax2.set_title("Normal Distribution Graph")
+        ax2.set_ylabel("Frequency")
+        ax2.set_xlabel("Price")
         plt.axvline(np.percentile(last_prices, 5), color='r', linestyle='dashed', linewidth=2)
         plt.axvline(np.percentile(last_prices, 95), color='r', linestyle='dashed', linewidth=2)
         
