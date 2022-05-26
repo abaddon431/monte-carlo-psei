@@ -94,4 +94,4 @@ and then gets the mean, 5th and 95th percentile for the estimations.
 
 [Mike Jerrson Galindez](https://github.com/miker-bice/)
 
-A special thanks to Mr. [Alvin Montiano](https://github.com/ALVIN0109/) for guiding as in this project.
+A special thanks to Mr. [Alvin Montiano](https://github.com/ALVIN0109/) for guiding us in this project.
