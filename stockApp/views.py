@@ -107,7 +107,8 @@ def update_stock(request):
             data = ticker_yahoo.history()
             last_quote = data['Close'].iloc[-1]
 
-        plt.axhline(y=last_quote, color='black', linestyle='-')
+        # plt.axhline(y=last_quote, color='black', linestyle='-')
+        
         # fig = plt.figure()
         # title = str(TOTAL_SIMULATIONS) + " Monte Carlo simulations of :\n" + str(stock_company) + " for " + str(
         #     trading_days) + " days"
