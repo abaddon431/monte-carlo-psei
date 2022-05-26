@@ -135,16 +135,16 @@ def update_stock(request):
 
         # this is to plot the second graph (histogram)
 
-        # fig2, ax2 = plt.subplots()
-        # ax2.hist(last_prices, bins=100, color='#6397ff')
-        # ax2.set_title(title)
-        # ax2.set_ylabel("Price")
-        # ax2.set_xlabel("Days")
-        # plt.axvline(np.percentile(last_prices, 5), color='r', linestyle='dashed', linewidth=2)
-        # plt.axvline(np.percentile(last_prices, 95), color='r', linestyle='dashed', linewidth=2)
-        #
-        # filename = "histogram.png"
-        # plt.savefig(os.path.join(current_directory, filename), dpi=300)
+        fig2, ax2 = plt.subplots()
+        ax2.hist(last_prices, bins=100, color='#6397ff')
+        ax2.set_title(title)
+        ax2.set_ylabel("Price")
+        ax2.set_xlabel("Days")
+        plt.axvline(np.percentile(last_prices, 5), color='r', linestyle='dashed', linewidth=2)
+        plt.axvline(np.percentile(last_prices, 95), color='r', linestyle='dashed', linewidth=2)
+        
+        filename = "histogram.png"
+        plt.savefig(os.path.join(current_directory, filename), dpi=300)
         # plt.show()
 
         # this is the session that will save the data from this function
