@@ -13,6 +13,7 @@ import os
 
 # this is for the home view
 def home(request):
+    # request.session.flush()
     # this function is responsible for current prices
     ticker_yahoo = yf.Ticker('PSEI.PS')
     data = ticker_yahoo.history()

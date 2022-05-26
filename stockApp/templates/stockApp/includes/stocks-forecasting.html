@@ -24,15 +24,20 @@
     />
 
     <!-- here goes the histogram -->
-    <div
+    {% comment %} <div
       class="histogram-container border-top border-bottom border-2 border-secondary border-opacity-25 py-3 my-3"
     >
       <h3>Frequeny Graph</h3>
       <p class="text-secondary">insert the graph here</p>
       <!-- <img src="..." class="img-fluid img-thumbnail" alt=""> -->
-    </div>
+    </div> {% endcomment %}
   </div>
 
-  <!-- insert here the price predictions -->
-  {% include 'stockApp/includes/price-predictions.html' %}
+  {% if not request.session.expected_price %}
+  {% else %}
+    <!-- insert here the price predictions -->
+    {% include 'stockApp/includes/price-predictions.html' %}
+  {% endif %}
+  
+  
 </section>
