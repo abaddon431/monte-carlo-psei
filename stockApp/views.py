@@ -32,10 +32,10 @@ def home(request):
 
 
 def update_stock(request):
+    request.session.flush()
     # this accepts the form fields
     simulation_days = int(request.POST['simulation_days'])
     simulation_number = int(request.POST['simulation_number'])
-
     if simulation_days == 0 or simulation_number == 0:
         messages.error(request, f'Invalid number of Days or number of Simulation')
         return redirect('stockApp:home')
@@ -47,8 +47,8 @@ def update_stock(request):
 
         # code to get the data from yahoo finance using yfinance API, supplying the stock name, start date, and end date
         # datetime(year,month,day)
-        start = dt.datetime(2021, 5, 19)
-        end = dt.datetime(2022, 5, 19)
+        start = dt.datetime(2011, 5, 19)
+        end = dt.datetime.today()
         stock_data = yf.download(SOURCE, start, end)
 
         # we get stock returns by comparing the percent change of current day price to the previous day price of..
@@ -58,67 +58,37 @@ def update_stock(request):
         daily_volatility = stock_returns.std()
 
         # setting of initial variables needed
-        trading_days = simulation_days
-        last_prices = []  # last price array
+        trading_days = simulation_days + 1
         last_price = stock_data['Adj Close'][-1]  # set initial value of the last price
-
         TOTAL_SIMULATIONS = simulation_number
-        # df = pd.DataFrame()
-        temp_frames = []
-        for x in range(TOTAL_SIMULATIONS):
-            counter = 0
-            prices = []
-            # we get the simulated price by drawing random samples from a normal distribution using numpy where..
-            # .. mean =0 , standard deviation = daily_volatility, ..
-            # .. and multiplying the sample with the last price on the list.
-            # price = last_price * (1 + np.random.normal(0, daily_volatility))
-            price = last_price
-            prices.append(price)
+        
+        # further optimization of code
+        # the next line creates 2 dimensional array using numpy where rows = trading days and columns = total sims
+        # while generating and inserting random numbers
+        # on the array based on the daily_volatility as range
+        random_dataset = 1 + np.random.normal(0, daily_volatility, (trading_days, TOTAL_SIMULATIONS))
+        price_list = np.zeros_like(random_dataset)  # create and populate an array shaped like the random generated array with zeroes
+        price_list[0] = last_price  # initialize the origin
 
-            for y in range(trading_days):
-                if counter > trading_days - 1:
-                    break
-                # this code also gets the simulated price using the same method but multiplies the random normal
-                # distribution sample with the elements on the prices array
-                price = prices[counter] * (1 + np.random.normal(0, daily_volatility))
-                prices.append(price)
-                counter += 1
+        # loop for calculating the simulated prices based on the previous days and the random dataset
+        for x in range(1, trading_days):
+            price_list[x] = price_list[x-1] * random_dataset[x]
+        last_prices = price_list[simulation_days]
 
-            # df[x] = prices
-            temp_frame = pd.DataFrame()
-            temp_frame[x] = prices
-            temp_frames.append(temp_frame)
-            last_prices.append(prices[-1])
-        df = pd.concat(temp_frames,axis=1)
         # this is used for setting the plot
         plt.style.use('ggplot')
         title = str(TOTAL_SIMULATIONS) + " Monte Carlo simulations of :\n" + str(stock_company) + " for " + str(
-            trading_days) + " days"
+            trading_days - 1) + " days"
+        
         fig1, ax1 = plt.subplots()
-        ax1.plot(df)
+        ax1.plot(price_list)
         ax1.set_title(title)
         ax1.set_ylabel("Price")
         ax1.set_xlabel("Days")
 
-
-        tickers = [SOURCE]
-        for ticker in tickers:
-            ticker_yahoo = yf.Ticker(ticker)
-            data = ticker_yahoo.history()
-            last_quote = data['Close'].iloc[-1]
-
-        # plt.axhline(y=last_quote, color='black', linestyle='-')
-        
-        # fig = plt.figure()
-        # title = str(TOTAL_SIMULATIONS) + " Monte Carlo simulations of :\n" + str(stock_company) + " for " + str(
-        #     trading_days) + " days"
-        # fig.suptitle(title)
-        # fig.set_figwidth(8)
-        # fig.set_figheight(5)
-        # plt.plot(df)
-        # plt.xlabel('Days')
-        # plt.ylabel('Price')
-        # filename = str(TOTAL_SIMULATIONS) + "-" + str(trading_days) + ".png"
+        # plt.axhline(y=last_quote, color='black', linestyle='-') # blackline
+        # initialize latest price
+        last_quote = stock_data['Adj Close'][-1]
         current_directory = "./static/images/graph"
         filename = "forecast_graph.png"
         plt.savefig(os.path.join(current_directory, filename), dpi=300)
@@ -127,11 +97,6 @@ def update_stock(request):
         expected_price = np.mean(last_prices)
         quantile_five = np.percentile(last_prices, 5)
         quantile_ninetyfive = np.percentile(last_prices, 95)
-
-        print("Current price: ", last_quote)
-        print("Expected price: ", expected_price)
-        print("Quantile (5%): ", quantile_five)
-        print("Quantile (95%): ", quantile_ninetyfive)
 
         # this is to plot the second graph (histogram)
 
@@ -144,7 +109,7 @@ def update_stock(request):
         plt.axvline(np.percentile(last_prices, 95), color='r', linestyle='dashed', linewidth=2)
         
         filename = "histogram.png"
-        plt.savefig(os.path.join(current_directory, filename), dpi=300)
+        plt.savefig(os.path.join(current_directory, filename), dpi=150)
         # plt.show()
 
         # this is the session that will save the data from this function
