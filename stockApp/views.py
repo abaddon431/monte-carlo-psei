@@ -102,16 +102,6 @@ def update_stock(request):
 
         fig2, ax2 = plt.subplots()
         ax2.hist(last_prices, bins=100, color='#6397ff')
-<<<<<<< HEAD
-        ax2.set_title("Normal Distribution Graph")
-        ax2.set_ylabel("Frequency")
-        ax2.set_xlabel("Price")
-        plt.axvline(np.percentile(last_prices, 5), color='r', linestyle='dashed', linewidth=2)
-        plt.axvline(np.percentile(last_prices, 95), color='r', linestyle='dashed', linewidth=2)
-        
-        filename = "histogram.png"
-        plt.savefig(os.path.join(current_directory, filename), dpi=150)
-=======
         ax2.set_title(title)
         ax2.set_ylabel("Price")
         ax2.set_xlabel("Days")
@@ -120,7 +110,6 @@ def update_stock(request):
 
         filename = "histogram.png"
         plt.savefig(os.path.join(current_directory, filename), dpi=300)
->>>>>>> b61d8ca (some changes)
         # plt.show()
 
         # this is the session that will save the data from this function
