@@ -24,27 +24,18 @@
     />
 
     <!-- here goes the histogram -->
-<<<<<<< HEAD
-      <div
-      class="histogram-container border-top border-bottom border-2 border-secondary border-opacity-25 py-3 my-3">
-         <img src="{% static 'images/graph/histogram.png' %}?{% now 'Ymdhis' %}" class="img-fluid img-thumbnail" alt="distribution-graph" width="500px">
-      </div>
-=======
     <div
       class="histogram-container border-top border-bottom border-2 border-secondary border-opacity-25 py-3 my-3"
     >
-      <h3>Frequeny Graph</h3>
-      <p class="text-secondary">insert the graph here</p>
-      <!-- <img src="..." class="img-fluid img-thumbnail" alt=""> -->
+      <img
+        src="{% static 'images/graph/histogram.png' %}?{% now 'Ymdhis' %}"
+        alt="distribution-graph"
+        class="img-fluid"
+      />
     </div>
->>>>>>> b61d8ca (some changes)
   </div>
 
-  {% if not request.session.expected_price %}
-  {% else %}
-    <!-- insert here the price predictions -->
-    {% include 'stockApp/includes/price-predictions.html' %}
-  {% endif %}
-  
-  
+  {% if not request.session.financial_data.expected_price %} {% else %}
+  <!-- insert here the price predictions -->
+  {% include 'stockApp/includes/price-predictions.html' %} {% endif %}
 </section>
